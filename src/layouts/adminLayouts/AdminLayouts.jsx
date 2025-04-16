@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-const AdminLayouts = ({ children }) => {
+const AdminLayouts = () => {
   return (
     <div className="flex min-h-screen">
       <aside className="w-64 bg-blue-900 text-white p-4">
@@ -13,7 +13,9 @@ const AdminLayouts = ({ children }) => {
           <Link to="/admin/peminjaman">Peminjaman</Link>
         </nav>
       </aside>
-      <main className="flex-1 bg-gray-100 p-6">{children}</main>
+      <main className="flex-1 bg-gray-100 p-6">
+        <Outlet />
+      </main>
     </div>
   );
 };
