@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { createBuku } from "../../services/bukuService";
+import { createBuku } from "../../../services/bukuService";
 
 const BukuPage = () => {
   const [form, setForm] = useState({
