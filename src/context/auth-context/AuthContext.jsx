@@ -8,15 +8,18 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(dataToken);
 
   const fetchProfile = async () => {
+    const role = localStorage.getItem("role");
+    const url =
+      role === "admin" ? "/api/v1/admin/profile" : "/api/v1/anggota/profile";
     try {
-      const res = await fetch("http://localhost:5000/api/v1/anggota/profile", {
+      const res = await fetch(`http://localhost:5000${url}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const data = await res.json();
       if (res.ok) {
-        setUser(data.anggota);
+        setUser(data[role]);
       } else {
         setUser(null);
         console.log(data.message);
@@ -32,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
   const login = async (email, password) => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/anggota/login", {
+      const res = await fetch("http://localhost:5000/api/v1/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -41,6 +44,7 @@ export const AuthProvider = ({ children }) => {
 
       if (!res.ok) throw new Error(data.message);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
       setToken(data.token);
 
       await fetchProfile();

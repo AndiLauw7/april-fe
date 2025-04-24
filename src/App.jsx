@@ -22,11 +22,13 @@ import PrivateRouteAnggota from "./private/PrivateRoute.jsx";
 import AnggotaLayout from "./layouts/anggotaLayouts/AnggotaLayouts.jsx";
 import LoginPage from "./pages/auth/Login.jsx";
 import { AuthContext } from "./context/auth-context/AuthContext.jsx";
+import Dashboard from "./components/dashboard/Dashboard.jsx";
 function App() {
   const { user } = useContext(AuthContext);
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Dashboard />} />
         <Route
           path="/login"
           element={
@@ -41,7 +43,6 @@ function App() {
             )
           }
         />
-
         <Route path="/admin" element={<AdminRoutePrivate />}>
           <Route element={<AdminLayouts />}>
             <Route path="dashboard" element={<DashboardAdmin />} />
@@ -93,9 +94,7 @@ function App() {
           </Route>
         </Route>
         <Route path="/anggota" element={<PrivateRouteAnggota />}>
-          <Route element={<AnggotaLayout />}>
-            <Route path="dashboard" element={<AnggotaLayout />} />
-          </Route>
+          <Route path="dashboard" element={<AnggotaLayout />} />
         </Route>
       </Routes>
     </Router>
