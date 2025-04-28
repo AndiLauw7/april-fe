@@ -47,14 +47,12 @@ export const useColumns = (handleEdit, handleKembalikan) => {
         size: 10,
       },
       {
-        accessorKey: "tgl_pinjam",
         header: "Tanggal Pinjam",
         grow: true,
         size: 10,
         accessorFn: (row) => ConvertTanggal(row.tgl_pinjam),
       },
       {
-        accessorKey: "tgl_kembali",
         header: "Tanggal Kembali",
         grow: true,
         size: 10,

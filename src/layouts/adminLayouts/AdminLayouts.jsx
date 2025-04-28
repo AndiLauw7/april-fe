@@ -9,7 +9,8 @@ const AdminLayouts = () => {
         <nav className="flex flex-col gap-2">
           <Link to="/admin/dashboard">Dashboard</Link>
           <Link to="/admin/buku">Kelola Buku</Link>
-          <Link to="/admin/anggota">Kelola Anggota</Link>
+          <Link to="/admin/kelola">Kelola Admin</Link>
+          <Link to="/admin/kelola-anggota">Kelola Anggota</Link>
           <Link to="/admin/peminjaman">Peminjaman</Link>
         </nav>
       </aside>

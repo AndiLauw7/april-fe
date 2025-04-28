@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import DashboardAdmin from "./pages/admin/Dashboard.jsx";
 
-import AnggotaPage from "./pages/admin/AnggotaPage.jsx";
+
 import PeminjamPage from "./pages/admin/peminjaman/PeminjamPage.jsx";
 import AdminLayouts from "./layouts/adminLayouts/AdminLayouts.jsx";
 import { BukuPage } from "./pages/admin/buku/BukuPage.jsx";
@@ -28,6 +28,9 @@ import ProfilAnggota from "./pages/anggota/ProfilAnggota.jsx";
 import DaftarBukuAnggota from "./pages/anggota/DaftarBukuAnggota.jsx";
 import RiwayatPeminjaman from "./pages/anggota/RiwayatPeminjaman.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
+import AddAdminPage from "./pages/admin/anggota/AddAdminPage.jsx";
+import { AdminContextKelolaProvider } from "./context/admin/AdminContextKelola.jsx";
+import AddAnggotaPage from "./pages/admin/anggota/AddAnggotaPage.jsx";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -93,7 +96,7 @@ function App() {
                 </BukuProvider>
               }
             />
-            <Route path="anggota" element={<AnggotaPage />} />
+
             <Route
               path="peminjaman"
               element={
@@ -112,6 +115,24 @@ function App() {
                     <TambahPeminjaman />
                   </PeminjamanProvider>
                 </BukuProvider>
+              }
+            />
+
+            <Route
+              path="kelola"
+              element={
+                <AdminContextKelolaProvider>
+                  <AddAdminPage />
+                </AdminContextKelolaProvider>
+              }
+            />
+
+            <Route
+              path="kelola-anggota"
+              element={
+                <AdminContextKelolaProvider>
+                  <AddAnggotaPage />
+                </AdminContextKelolaProvider>
               }
             />
           </Route>
