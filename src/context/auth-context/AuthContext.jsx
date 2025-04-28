@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { createContext, useEffect, useState } from "react";
+import { registerAdmin, registerAnggota } from "../../services/authServices";
 
 export const AuthContext = createContext();
 
@@ -55,13 +57,42 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // const register = async (data, registerRole) => {
+  //   try {
+  //     if (registerRole === "admin") {
+  //       const res = await registerAdmin(data);
+  //       const { token: newToken, admin } = res.data;
+  //       localStorage.setItem("token", newToken);
+  //       localStorage.setItem("role", "admin");
+  //       setToken(newToken);
+  //       setUser(admin);
+  //       return res;
+  //     }else{
+  //       await registerAnggota(data);
+  //       const resLogin = await
+  //     }
+  //   } catch (error) {}
+  // };
+  const register = async (data, role) => {
+    try {
+      if (role === "admin") {
+        await registerAdmin(data);
+      } else if (role === "anggota") {
+        await registerAnggota(data);
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   const logout = () => {
     setUser(null);
     setToken("");
     localStorage.removeItem("token");
   };
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, register, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

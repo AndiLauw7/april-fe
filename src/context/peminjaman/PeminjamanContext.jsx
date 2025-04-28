@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getAllAnggota, getAllPeminjam } from "../../services/adminService";
 import {
   createPeminjaman,
+  getPeminjamanByAnggota,
   updatePeminjam,
 } from "../../services/peminjamanService";
 import { getAllBuku } from "../../services/bukuService";
@@ -16,6 +17,7 @@ export const PeminjamanProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { bukuList } = useContext(BukuContext);
+  const [riwayatPeminjaman, setRiwayatPeminjaman] = useState([]);
   const fetchDataJoin = async () => {
     try {
       const resAnggota = await getAllAnggota();
@@ -29,10 +31,12 @@ export const PeminjamanProvider = ({ children }) => {
   useEffect(() => {
     fetchDataJoin();
   }, []);
+
   const fetchPeminjaman = async () => {
     try {
       setLoading(true);
       const res = await getAllPeminjam();
+
       if (res?.data?.dataPeminjman) {
         console.log(res.data.dataPeminjman);
         setPeminjamanList(res.data.dataPeminjman);
@@ -79,9 +83,25 @@ export const PeminjamanProvider = ({ children }) => {
     }
   };
 
+  const fetchRiwayatPeminjamanAnggota = async (id) => {
+    try {
+      setLoading(true);
+      const res = await getPeminjamanByAnggota(id);
+      if (res?.data?.peminjaman) {
+        setRiwayatPeminjaman(res.data.peminjaman);
+      }
+    } catch (error) {
+      console.error("Gagal mengambil riwayat peminjaman anggota:", error);
+      return error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchPeminjaman();
   }, []);
+
   useEffect(() => {
     if (message) {
       const timeout = setTimeout(() => {
@@ -98,6 +118,8 @@ export const PeminjamanProvider = ({ children }) => {
         updatePeminjaman,
         fetchDataJoin,
         fetchPeminjaman,
+        riwayatPeminjaman,
+        fetchRiwayatPeminjamanAnggota,
         AnggotaList,
         loading,
         message,
