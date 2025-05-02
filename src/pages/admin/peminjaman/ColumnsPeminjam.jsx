@@ -12,7 +12,11 @@ export const useColumns = (handleEdit, handleKembalikan) => {
         Cell: ({ row }) => (
           <div className="flex gap-2">
             <button
-              className="bg-yellow-500 text-white px-2 py-1 rounded"
+              className={`px-2 py-1 rounded ${
+                row.original.status === "dikembalikan"
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-yellow-500 text-white"
+              }`}
               onClick={() => handleEdit(row.original.id)}
             >
               Edit
@@ -41,7 +45,7 @@ export const useColumns = (handleEdit, handleKembalikan) => {
         size: 10,
       },
       {
-        accessorKey: "Buku.judul_buku",
+        accessorKey: "buku.judul_buku",
         header: "Buku",
         grow: true,
         size: 10,

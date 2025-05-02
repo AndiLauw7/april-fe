@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }) => {
       fetchProfile();
     }
   }, [token]);
+
   const login = async (email, password) => {
     try {
       const res = await fetch("http://localhost:5000/api/v1/login", {

@@ -77,7 +77,18 @@ export const PeminjamanProvider = ({ children }) => {
       setMessage("Status peminjaman berhasil diperbarui");
       await fetchPeminjaman();
     } catch (error) {
-      console.log(error);
+      console.error("Gagal update:", error.response?.data || error.message);
+      setMessage("Peminjaman gagal update");
+      return error;
+    }
+  };
+  const updateAllDataPeminjam = async (id, formData) => {
+    try {
+      await updatePeminjam(id, formData);
+      setMessage("Status peminjaman berhasil diperbarui");
+      await fetchPeminjaman();
+    } catch (error) {
+      console.error("Gagal update:", error.response?.data || error.message);
       setMessage("Peminjaman gagal update");
       return error;
     }
@@ -116,6 +127,7 @@ export const PeminjamanProvider = ({ children }) => {
         peminjamanList,
         tambahPeminjaman,
         updatePeminjaman,
+        updateAllDataPeminjam,
         fetchDataJoin,
         fetchPeminjaman,
         riwayatPeminjaman,

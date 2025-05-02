@@ -45,6 +45,8 @@ const AddAnggotaPage = () => {
           placeholder="NIS"
           value={formData.nis}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
         <input
           type="text"
@@ -52,6 +54,8 @@ const AddAnggotaPage = () => {
           placeholder="Nama Siswa"
           value={formData.nama_siswa}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
         <input
           type="text"
@@ -59,6 +63,8 @@ const AddAnggotaPage = () => {
           placeholder="Kelas"
           value={formData.kelas}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
         <input
           type="text"
@@ -66,6 +72,8 @@ const AddAnggotaPage = () => {
           placeholder="Jenis Kelamin"
           value={formData.jenis_kelamin}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
         <input
           type="date"
@@ -73,13 +81,18 @@ const AddAnggotaPage = () => {
           placeholder="Tanggal Lahir"
           value={formData.tgl_lahir}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
+
         <input
           type="email"
           name="email"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
         <input
           type="text"
@@ -87,6 +100,8 @@ const AddAnggotaPage = () => {
           placeholder="Nomor HP"
           value={formData.nohp}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
         <input
           type="password"
@@ -94,8 +109,17 @@ const AddAnggotaPage = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
+          className="border border-gray-300 rounded p-2 w-full"
+          required
         />
-        <button type="submit">Tambah Anggota</button>
+
+        <button
+          type="submit"
+          // disabled={loading}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-2"
+        >
+          Tambah Anggota
+        </button>
       </form>
 
       {error && <p style={{ color: "red" }}>{error}</p>}

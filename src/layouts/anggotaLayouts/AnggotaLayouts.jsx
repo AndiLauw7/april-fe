@@ -84,9 +84,8 @@ const AnggotaLayout = () => {
       </aside>
 
       <div className="flex-1 flex flex-col">
-        <header className="hidden md:flex bg-white p-4 shadow-md justify-between items-center">
-          <h1 className="text-lg font-semibold">
-            {" "}
+        <header className="hidden md:flex bg-white p-4 shadow-md justify-end items-center">
+          <h1 className="text-lg  font-semibold">
             {user?.nama_siswa || "Anggota"}!
           </h1>
         </header>

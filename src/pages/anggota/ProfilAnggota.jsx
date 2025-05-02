@@ -1,14 +1,9 @@
 // src/pages/anggota/ProfilAnggota.jsx
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import dasboardDepan from "../../assets/backgroud-depan.webp";
+import { AuthContext } from "../../context/auth-context/AuthContext";
 const ProfilAnggota = () => {
-  const user = {
-    nama: "Andi Lauw",
-    email: "andi@example.com",
-    noHp: "081234567890",
-    alamat: "Jl. Buku No. 123",
-    tanggalBergabung: "2024-03-01",
-  };
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -16,17 +11,17 @@ const ProfilAnggota = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-2">
         <div className="mb-4">
           <p className="text-gray-600">Nama Lengkap</p>
-          <p className="font-semibold">{user.nama}</p>
-          <p className="text-gray-600">Nomor Induk</p>
-          <p className="font-semibold">1234567</p>
+          <p className="font-semibold">{user.nama_siswa}</p>
+          <p className="text-gray-600">Nomor Induk Siswa</p>
+          <p className="font-semibold">{user.nis}</p>
           <p className="text-gray-600">Kelas</p>
-          <p className="font-semibold">12 A</p>
+          <p className="font-semibold">{user.kelas}</p>
         </div>
         <div className="mb-4">
           <p className="text-gray-600">Email</p>
           <p className="font-semibold">{user.email}</p>
           <p className="text-gray-600">No HP</p>
-          <p className="font-semibold">{user.noHp}</p>
+          <p className="font-semibold">{user.nohp}</p>
           <p className="text-gray-600">Alamat</p>
           <p className="font-semibold">{user.alamat}</p>
           <p className="text-gray-600">Tanggal Bergabung</p>

@@ -1,39 +1,32 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useContext } from "react";
-import { PeminjamanContext } from "../../../context/peminjaman/PeminjamanContext";
-import { useColumns } from "./ColumnsPeminjam";
+import { useColumns } from "./ColumnsAnggota";
 import { TableCustom } from "../../../components/table/TableCustom";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { AnggotaContext } from "../../../context/anggota/AnggotaContext";
 
-export const PeminjamanData = () => {
-  const {
-    peminjamanList,
-    tambahPeminjaman,
-    updatePeminjaman,
-    message,
-    loading,
-  } = useContext(PeminjamanContext);
-  const handleEdit = (id) => {
-    navigate(`/admin/update/peminjam/${id}`);
-  };
-  const handleKembalikan = async (id) => {
-    await updatePeminjaman(id, { status: "dikembalikan" });
-  };
+export const DataAnggota = () => {
+  const { anggotaList, message, loading } = useContext(AnggotaContext);
   const navigate = useNavigate();
-  const handleTambah = () => {
-    navigate("/admin/create/peminjam");
+
+  const handleEdit = (id) => {
+    navigate(`/admin/edit/anggota/${id}`);
   };
 
-  const columns = useColumns(handleEdit, handleKembalikan);
+  const handleTambah = () => {
+    navigate("/admin/tambah/anggota");
+  };
+
+  const columns = useColumns(handleEdit);
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Daftar Peminjam</h1>
 
       <TableCustom
-        data={peminjamanList}
+        data={anggotaList}
         columns={columns}
         renderTopToolbarCustomActions={() => {
           return (

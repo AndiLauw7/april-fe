@@ -38,7 +38,7 @@ const Dashboard = () => {
   const aktif = peminjaman.filter((p) => p.status === "dipinjam").length;
   return (
     <div>
-      <h1 className="text-2xl font-bold">Dashboard Admin</h1>
+      <h1 className="text-2xl font-bold mb-4">Dashboard Admin</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatCard
           title="Total Buku"

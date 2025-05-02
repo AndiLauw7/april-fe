@@ -29,8 +29,12 @@ const RiwayatPeminjaman = () => {
   }
 
   return (
-    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-      {riwayatPeminjaman.map((item) => {
+    <div>
+      <h2 className="text-2xl font-bold text-blue-600 mb-4">
+        Riwayat Peminjaman
+      </h2>
+      <div className="p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* {riwayatPeminjaman.map((item) => {
         const buku = bukuList.find((b) => b.id === item.bukuId) || {};
         return (
           <div
@@ -62,7 +66,40 @@ const RiwayatPeminjaman = () => {
             </div>
           </div>
         );
-      })}
+      })} */}
+
+        {riwayatPeminjaman.length > 0 ? (
+          riwayatPeminjaman.map((peminjaman, index) => (
+            <div key={index} className="bg-white p-4 shadow rounded-lg">
+              <h4 className="text-md font-semibold text-gray-800">
+                Judul Buku: {peminjaman.buku.judul_buku}
+              </h4>
+              <p className="text-sm text-gray-600">
+                Tanggal Pinjam:{" "}
+                {new Date(peminjaman.tgl_pinjam).toLocaleDateString()}
+              </p>
+              <p className="text-sm text-gray-600">
+                Tanggal Kembali:{" "}
+                {new Date(peminjaman.tgl_kembali).toLocaleDateString()}
+              </p>
+              <p className="text-sm text-green-500">
+                Status Pinjam:{" "}
+                {peminjaman.status
+                  ? `Rp ${peminjaman.status}`
+                  : "Tidak ada denda"}
+              </p>
+              <p className="text-sm text-red-500">
+                Denda:{" "}
+                {peminjaman.denda
+                  ? `Rp ${peminjaman.denda}`
+                  : "Tidak ada denda"}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-600">Belum ada buku yang dipinjam.</p>
+        )}
+      </div>
     </div>
   );
 };

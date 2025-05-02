@@ -28,9 +28,13 @@ import ProfilAnggota from "./pages/anggota/ProfilAnggota.jsx";
 import DaftarBukuAnggota from "./pages/anggota/DaftarBukuAnggota.jsx";
 import RiwayatPeminjaman from "./pages/anggota/RiwayatPeminjaman.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
-import AddAdminPage from "./pages/admin/anggota/AddAdminPage.jsx";
+import AddAdminPage from "./pages/admin/Data-admin/AddAdminPage.jsx";
 import { AdminContextKelolaProvider } from "./context/admin/AdminContextKelola.jsx";
-import AddAnggotaPage from "./pages/admin/anggota/AddAnggotaPage.jsx";
+import AddAnggotaPage from "./pages/admin/Data-anggota/AddAnggotaPage.jsx";
+import EditPeminjam from "./pages/admin/peminjaman/EditPeminjam.jsx";
+import { DataAnggota } from "./pages/admin/Data-anggota/DataAnggota.jsx";
+import { AnggotaProvider } from "./context/anggota/AnggotaContext.jsx";
+import EditAnggotaPage from "./pages/admin/Data-anggota/EditAnggota.jsx";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -117,6 +121,16 @@ function App() {
                 </BukuProvider>
               }
             />
+            <Route
+              path="update/peminjam/:id"
+              element={
+                <BukuProvider>
+                  <PeminjamanProvider>
+                    <EditPeminjam />
+                  </PeminjamanProvider>
+                </BukuProvider>
+              }
+            />
 
             <Route
               path="kelola"
@@ -131,7 +145,30 @@ function App() {
               path="kelola-anggota"
               element={
                 <AdminContextKelolaProvider>
-                  <AddAnggotaPage />
+                  <AnggotaProvider>
+                    <DataAnggota />
+                  </AnggotaProvider>
+                </AdminContextKelolaProvider>
+              }
+            />
+            <Route
+              path="tambah/anggota"
+              element={
+                <AdminContextKelolaProvider>
+                  <AnggotaProvider>
+                    <AddAnggotaPage />
+                  </AnggotaProvider>
+                </AdminContextKelolaProvider>
+              }
+            />
+
+            <Route
+              path="edit/anggota/:id"
+              element={
+                <AdminContextKelolaProvider>
+                  <AnggotaProvider>
+                    <EditAnggotaPage />
+                  </AnggotaProvider>
                 </AdminContextKelolaProvider>
               }
             />
@@ -139,7 +176,16 @@ function App() {
         </Route>
         <Route path="/anggota" element={<PrivateRouteAnggota />}>
           <Route element={<AnggotaLayout />}>
-            <Route path="dashboard" element={<DashboardAnggota />} />
+            <Route
+              path="dashboard"
+              element={
+                <BukuProvider>
+                  <PeminjamanProvider>
+                    <DashboardAnggota />
+                  </PeminjamanProvider>
+                </BukuProvider>
+              }
+            />
             <Route path="profil" element={<ProfilAnggota />} />
 
             <Route

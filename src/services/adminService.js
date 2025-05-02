@@ -1,8 +1,50 @@
 import API from "./api";
-import axios from "axios";
+
 export const getAllBuku = () => API.get("/buku/get-buku");
 export const getAllPeminjam = () => API.get("/peminjaman/get-peminjam");
 export const getAllAnggota = () => API.get("/anggota/get-all");
+// export const updateAnggota = (id, data) => {
+//   console.log("Updating anggota:", id, data);
+//   const token = localStorage.getItem("token");
+//   if (!token) {
+//     throw new Error("Token tidak ditemukan. Anda harus login terlebih dahulu.");
+//   }
+//   API.put(`/anggota/update/${id}`, data, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   })
+//     .then((response) => {
+//       console.log("Response from API:", response); // Log respons dari API
+//       return response.data; // Pastikan respons dikembalikan dengan benar
+//     })
+//     .catch((error) => {
+//       console.error("Error during updateAnggota:", error);
+//       throw error; // Tangani error jika terjadi
+//     });
+// };
+
+export const updateAnggota = (id, data) => {
+  console.log("Updating anggota:", id, data);
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("Token tidak ditemukan. Anda harus login terlebih dahulu.");
+  }
+
+  return API.put(`/anggota/update/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      console.log("Response from API:", response); // Log respons dari API
+      return response.data; // ✅ ini yang harus dikembalikan
+    })
+    .catch((error) => {
+      console.error("Error during updateAnggota:", error);
+      throw error;
+    });
+};
 
 export const registerAdmin = async (adminData, token) => {
   try {
