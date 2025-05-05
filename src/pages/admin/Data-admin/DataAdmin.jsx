@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-import { useContext } from "react";
-import { useColumns } from "./ColumnsAnggota";
+import { useContext, useEffect } from "react";
+import { AdminContextKelola } from "../../../context/admin/AdminContextKelola";
+import { useColumns } from "./ColumnsAdmin";
+import { useNavigate } from "react-router-dom";
 import { TableCustom } from "../../../components/table/TableCustom";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { AnggotaContext } from "../../../context/anggota/AnggotaContext";
 
-export const DataAnggota = () => {
-  const { anggotaList, message, loading } = useContext(AnggotaContext);
+const DataAllAdmin = () => {
+  const { dataAllAdmin, error, loading, handleGetAllAdmin, message } =
+    useContext(AdminContextKelola);
+  console.log(dataAllAdmin);
+
   const navigate = useNavigate();
 
   const handleEdit = (id) => {
@@ -19,6 +21,9 @@ export const DataAnggota = () => {
     navigate("/admin/tambah/anggota");
   };
 
+  useEffect(() => {
+    handleGetAllAdmin();
+  }, []);
   const columns = useColumns(handleEdit);
 
   return (
@@ -26,7 +31,7 @@ export const DataAnggota = () => {
       <h1 className="text-2xl font-bold mb-4">Daftar Anggota</h1>
 
       <TableCustom
-        data={anggotaList}
+        data={dataAllAdmin}
         columns={columns}
         renderTopToolbarCustomActions={() => {
           return (
@@ -49,3 +54,5 @@ export const DataAnggota = () => {
     </div>
   );
 };
+
+export default DataAllAdmin;

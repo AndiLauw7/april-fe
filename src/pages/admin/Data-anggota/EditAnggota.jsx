@@ -51,7 +51,7 @@ const EditAnggotaPage = () => {
     <div>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
-      <h1>Tambah Anggota Baru</h1>
+      <h1 className="text-2xl font-bold mb-4">Edit Anggota</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -75,7 +75,7 @@ const EditAnggotaPage = () => {
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-2"
         >
-          Tambah Anggota
+          Simpan
         </button>
       </form>
 

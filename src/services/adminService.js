@@ -3,26 +3,16 @@ import API from "./api";
 export const getAllBuku = () => API.get("/buku/get-buku");
 export const getAllPeminjam = () => API.get("/peminjaman/get-peminjam");
 export const getAllAnggota = () => API.get("/anggota/get-all");
-// export const updateAnggota = (id, data) => {
-//   console.log("Updating anggota:", id, data);
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     throw new Error("Token tidak ditemukan. Anda harus login terlebih dahulu.");
-//   }
-//   API.put(`/anggota/update/${id}`, data, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   })
-//     .then((response) => {
-//       console.log("Response from API:", response); // Log respons dari API
-//       return response.data; // Pastikan respons dikembalikan dengan benar
-//     })
-//     .catch((error) => {
-//       console.error("Error during updateAnggota:", error);
-//       throw error; // Tangani error jika terjadi
-//     });
-// };
+
+
+export const getProfileAdmin = () => API.get("/admin/profile");
+export const getAllAdmin = (config) => API.get("/admin/get-all", config);
+export const updateAdmin = (id, data) =>
+  API.get(`/admin/update-admin/${id}`, data);
+
+export const deleteAdmin = (id, data) =>
+  API.delete(`/admin/delete-admin/${id}`, data);
+
 
 export const updateAnggota = (id, data) => {
   console.log("Updating anggota:", id, data);

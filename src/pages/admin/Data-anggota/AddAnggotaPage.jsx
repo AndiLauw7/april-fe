@@ -37,7 +37,8 @@ const AddAnggotaPage = () => {
 
   return (
     <div>
-      <h1>Tambah Anggota Baru</h1>
+      <h1 className="text-2xl font-bold mb-4">Tambah Anggota</h1>
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -118,7 +119,7 @@ const AddAnggotaPage = () => {
           // disabled={loading}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-2"
         >
-          Tambah Anggota
+          Simpan
         </button>
       </form>
 

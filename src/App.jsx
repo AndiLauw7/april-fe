@@ -35,6 +35,7 @@ import EditPeminjam from "./pages/admin/peminjaman/EditPeminjam.jsx";
 import { DataAnggota } from "./pages/admin/Data-anggota/DataAnggota.jsx";
 import { AnggotaProvider } from "./context/anggota/AnggotaContext.jsx";
 import EditAnggotaPage from "./pages/admin/Data-anggota/EditAnggota.jsx";
+import DataAllAdmin from "./pages/admin/Data-admin/DataAdmin.jsx";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -133,10 +134,10 @@ function App() {
             />
 
             <Route
-              path="kelola"
+              path="kelola-admin"
               element={
                 <AdminContextKelolaProvider>
-                  <AddAdminPage />
+                  <DataAllAdmin />
                 </AdminContextKelolaProvider>
               }
             />
