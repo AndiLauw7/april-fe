@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth-context/AuthContext";
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import bakground from "../../assets/backgroud-depan.webp";
 const FormLogin = ({ switchForm }) => {
   const { login, user } = useContext(AuthContext);
   const [email, setEmail] = useState("");

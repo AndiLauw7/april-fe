@@ -12,11 +12,10 @@ import DashboardAdmin from "./pages/admin/Dashboard.jsx";
 import PeminjamPage from "./pages/admin/peminjaman/PeminjamPage.jsx";
 import AdminLayouts from "./layouts/adminLayouts/AdminLayouts.jsx";
 import { BukuPage } from "./pages/admin/buku/BukuPage.jsx";
-import { TambahBuku } from "./pages/admin/buku/TambahBuku.jsx";
+
 import { BukuProvider } from "./context/buku/BukuContext.jsx";
-import { EditBuku } from "./pages/admin/buku/EditBuku.jsx";
+
 import { PeminjamanProvider } from "./context/peminjaman/PeminjamanContext.jsx";
-import { TambahPeminjaman } from "./pages/admin/peminjaman/TambahPeminjaman.jsx";
 import AdminRoutePrivate from "./private/AdminroutePrivate.jsx";
 import PrivateRouteAnggota from "./private/PrivateRoute.jsx";
 import AnggotaLayout from "./layouts/anggotaLayouts/AnggotaLayouts.jsx";
@@ -28,13 +27,9 @@ import ProfilAnggota from "./pages/anggota/ProfilAnggota.jsx";
 import DaftarBukuAnggota from "./pages/anggota/DaftarBukuAnggota.jsx";
 import RiwayatPeminjaman from "./pages/anggota/RiwayatPeminjaman.jsx";
 import RegisterAdmin from "./pages/auth/RegisterAdmin.jsx";
-import AddAdminPage from "./pages/admin/Data-admin/AddAdminPage.jsx";
 import { AdminContextKelolaProvider } from "./context/admin/AdminContextKelola.jsx";
-import AddAnggotaPage from "./pages/admin/Data-anggota/AddAnggotaPage.jsx";
-import EditPeminjam from "./pages/admin/peminjaman/EditPeminjam.jsx";
 import { DataAnggota } from "./pages/admin/Data-anggota/DataAnggota.jsx";
 import { AnggotaProvider } from "./context/anggota/AnggotaContext.jsx";
-import EditAnggotaPage from "./pages/admin/Data-anggota/EditAnggota.jsx";
 import DataAllAdmin from "./pages/admin/Data-admin/DataAdmin.jsx";
 function App() {
   const { user } = useContext(AuthContext);
@@ -42,21 +37,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-
-        {/* <Route
-          path="/login"
-          element={
-            user ? (
-              user.role === "admin" ? (
-                <Navigate to="/admin/dashboard" replace />
-              ) : (
-                <Navigate to="/anggota/dashboard" replace />
-              )
-            ) : (
-              <AuthLayouts />
-            )
-          }
-        /> */}
         <Route
           path="/login"
           element={
@@ -86,48 +66,11 @@ function App() {
               }
             />
             <Route
-              path="tambah/buku"
-              element={
-                <BukuProvider>
-                  <TambahBuku />
-                </BukuProvider>
-              }
-            />
-            <Route
-              path="update/buku/:id"
-              element={
-                <BukuProvider>
-                  <EditBuku />
-                </BukuProvider>
-              }
-            />
-
-            <Route
               path="peminjaman"
               element={
                 <BukuProvider>
                   <PeminjamanProvider>
                     <PeminjamPage />
-                  </PeminjamanProvider>
-                </BukuProvider>
-              }
-            />
-            <Route
-              path="create/peminjam"
-              element={
-                <BukuProvider>
-                  <PeminjamanProvider>
-                    <TambahPeminjaman />
-                  </PeminjamanProvider>
-                </BukuProvider>
-              }
-            />
-            <Route
-              path="update/peminjam/:id"
-              element={
-                <BukuProvider>
-                  <PeminjamanProvider>
-                    <EditPeminjam />
                   </PeminjamanProvider>
                 </BukuProvider>
               }
@@ -141,7 +84,6 @@ function App() {
                 </AdminContextKelolaProvider>
               }
             />
-
             <Route
               path="kelola-anggota"
               element={
@@ -152,29 +94,9 @@ function App() {
                 </AdminContextKelolaProvider>
               }
             />
-            <Route
-              path="tambah/anggota"
-              element={
-                <AdminContextKelolaProvider>
-                  <AnggotaProvider>
-                    <AddAnggotaPage />
-                  </AnggotaProvider>
-                </AdminContextKelolaProvider>
-              }
-            />
-
-            <Route
-              path="edit/anggota/:id"
-              element={
-                <AdminContextKelolaProvider>
-                  <AnggotaProvider>
-                    <EditAnggotaPage />
-                  </AnggotaProvider>
-                </AdminContextKelolaProvider>
-              }
-            />
           </Route>
         </Route>
+
         <Route path="/anggota" element={<PrivateRouteAnggota />}>
           <Route element={<AnggotaLayout />}>
             <Route

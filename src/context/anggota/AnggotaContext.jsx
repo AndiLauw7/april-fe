@@ -25,35 +25,15 @@ export const AnggotaProvider = ({ children }) => {
     fetchAnggota();
   }, []);
 
-  //   const editAnggota = async (id, updatedData) => {
-  //     try {
-  //       setLoading(true);
-  //       const res = await updateAnggota(id, updatedData);
-  //       console.log("Respons update anggota:", res);
-  //       if (res && res.data) {
-  //         const updatedData = res.data.data;
-  //         await fetchAnggota();
-  //         setMessage("Anggota berhasil diperbarui");
-  //         return updatedData;
-  //       } else {
-  //         throw new Error("Gagal update anggota");
-  //       }
-  //     } catch (error) {
-  //       console.error("Gagal update anggota:", error);
-  //       setMessage("Gagal update anggota");
-  //       throw error;
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+
   const editAnggota = async (id, updatedData) => {
     try {
       setLoading(true);
       const res = await updateAnggota(id, updatedData);
-      console.log("Respons update anggota:", res); // Log respons untuk debugging
-      await fetchAnggota(); // Ambil data anggota terbaru setelah update
+      console.log("Respons update anggota:", res);
+      await fetchAnggota();
       setMessage("Anggota berhasil diperbarui");
-      return res; // Pastikan kita mengembalikan data yang benar
+      return res;
     } catch (error) {
       console.error("Gagal update anggota:", error);
       setMessage("Gagal update anggota");
@@ -65,7 +45,15 @@ export const AnggotaProvider = ({ children }) => {
 
   return (
     <AnggotaContext.Provider
-      value={{ anggotaList, setAnggotalist, loading, message, editAnggota }}
+      value={{
+        anggotaList,
+        setAnggotalist,
+        fetchAnggota,
+        loading,
+        message,
+        setMessage,
+        editAnggota,
+      }}
     >
       {children}
     </AnggotaContext.Provider>

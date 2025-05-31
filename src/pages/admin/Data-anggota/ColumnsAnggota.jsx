@@ -2,7 +2,7 @@ import React from "react";
 import { useMemo } from "react";
 import { ConvertTanggal } from "../../../utils/convert-tgl/ConvertTgl";
 
-export const useColumns = (handleEdit, handleTambah) => {
+export const useColumns = (handleEdit, handleOpenConfirm) => {
   const columns = useMemo(
     () => [
       {
@@ -16,6 +16,12 @@ export const useColumns = (handleEdit, handleTambah) => {
             >
               Edit
             </button>
+            {/* <button
+              className="px-2 py-1 rounded bg-red-500 text-white"
+              onClick={() => handleOpenConfirm(row.original.id)}
+            >
+              Delete
+            </button> */}
           </div>
         ),
       },
@@ -62,7 +68,7 @@ export const useColumns = (handleEdit, handleTambah) => {
         size: 10,
       },
     ],
-    [handleEdit, handleTambah]
+    [handleEdit]
   );
   return columns;
 };

@@ -58,22 +58,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // const register = async (data, registerRole) => {
-  //   try {
-  //     if (registerRole === "admin") {
-  //       const res = await registerAdmin(data);
-  //       const { token: newToken, admin } = res.data;
-  //       localStorage.setItem("token", newToken);
-  //       localStorage.setItem("role", "admin");
-  //       setToken(newToken);
-  //       setUser(admin);
-  //       return res;
-  //     }else{
-  //       await registerAnggota(data);
-  //       const resLogin = await
-  //     }
-  //   } catch (error) {}
-  // };
   const register = async (data, role) => {
     try {
       if (role === "admin") {

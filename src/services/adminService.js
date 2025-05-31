@@ -7,12 +7,20 @@ export const getAllAnggota = () => API.get("/anggota/get-all");
 
 export const getProfileAdmin = () => API.get("/admin/profile");
 export const getAllAdmin = (config) => API.get("/admin/get-all", config);
-export const updateAdmin = (id, data) =>
-  API.get(`/admin/update-admin/${id}`, data);
 
-export const deleteAdmin = (id, data) =>
-  API.delete(`/admin/delete-admin/${id}`, data);
+export const updateAdmin = (id, data) => {
+  const token = localStorage.getItem("token");
+  return API.put(`/admin/update-admin/${id}`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
 
+export const deleteAdmin = (id) => {
+  const token = localStorage.getItem("token");
+  return API.delete(`/admin/delete-admin/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
 
 export const updateAnggota = (id, data) => {
   console.log("Updating anggota:", id, data);

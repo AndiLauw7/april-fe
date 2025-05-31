@@ -2,8 +2,10 @@
 import { createContext, useState } from "react";
 import {
   adminAddAnggota,
+  deleteAdmin,
   getAllAdmin,
   registerAdmin,
+  updateAdmin,
 } from "../../services/adminService";
 
 export const AdminContextKelola = createContext();
@@ -38,6 +40,20 @@ export const AdminContextKelolaProvider = ({ children }) => {
       throw err;
     }
   };
+  const handleUpdateAdmin = async (id, updatedData) => {
+    setLoading(true);
+    try {
+      const response = await updateAdmin(id, updatedData);
+      setLoading(false);
+      // Refresh data admin setelah update
+      await handleGetAllAdmin();
+      return response.data;
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+      setLoading(false);
+      throw err;
+    }
+  };
 
   const handleGetAllAdmin = async () => {
     try {
@@ -57,6 +73,21 @@ export const AdminContextKelolaProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  const handleDeleteAdmin = async (id) => {
+    setLoading(true);
+    try {
+      const response = await deleteAdmin(id);
+      setLoading(false);
+      // Refresh data admin setelah hapus
+      await handleGetAllAdmin();
+      return response.data;
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+      setLoading(false);
+      throw err;
+    }
+  };
+
   return (
     <AdminContextKelola.Provider
       value={{
@@ -66,7 +97,9 @@ export const AdminContextKelolaProvider = ({ children }) => {
         error,
         handleRegisterAdmin,
         handleAddAnggota,
+        handleUpdateAdmin,
         handleGetAllAdmin,
+        handleDeleteAdmin,
       }}
     >
       {children}

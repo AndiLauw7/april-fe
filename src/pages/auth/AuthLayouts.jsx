@@ -1,7 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/auth-context/AuthContext";
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import bakground from "../../assets/backgroud-depan.webp";
 import FormRegister from "./FormRegister";

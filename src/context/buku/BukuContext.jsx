@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createContext, useEffect, useState } from "react";
 import { getAllBuku } from "../../services/adminService";
-import { createBuku, deleteBuku } from "../../services/bukuService";
+import { createBuku, deleteBuku, updateBuku } from "../../services/bukuService";
 
 export const BukuContext = createContext();
 
@@ -49,7 +49,7 @@ export const BukuProvider = ({ children }) => {
     }
   };
 
-  const updateBuku = async (id, data) => {
+  const updateDataBuku = async (id, data) => {
     try {
       await updateBuku(id, data);
       await fetchBuku();
@@ -74,7 +74,14 @@ export const BukuProvider = ({ children }) => {
   }, [message]);
   return (
     <BukuContext.Provider
-      value={{ bukuList, tambahBuku, hapusBuku, loading, message, updateBuku }}
+      value={{
+        bukuList,
+        tambahBuku,
+        hapusBuku,
+        loading,
+        message,
+        updateDataBuku,
+      }}
     >
       {children}
     </BukuContext.Provider>
