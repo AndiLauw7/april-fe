@@ -11,7 +11,6 @@ const FormLogin = ({ switchForm }) => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      console.log(data);
 
       alert("Login Berhasil");
     } catch (error) {
@@ -19,12 +18,22 @@ const FormLogin = ({ switchForm }) => {
     }
   };
   useEffect(() => {
-    if (user) {
-      if (user.role === "anggota") {
-        navigate("/anggota/dashboard");
-      } else if (user.role === "admin") {
-        navigate("/admin/dashboard");
-      }
+    console.log("User saat login:", user);
+    // if (user) {
+    //   if (user.role === "anggota") {
+    //     navigate("/anggota/dashboard");
+    //   } else if (user.role === "admin") {
+    //     navigate("/admin/dashboard");
+    //   } else if (user.role === "kepsek") {
+    //     navigate("/admin/dashboard");
+    //   }
+    // }
+    if (!user) return;
+
+    if (user.role === "admin" || user.role === "kepsek") {
+      navigate("/admin/dashboard");
+    } else if (user.role === "anggota") {
+      navigate("/anggota/dashboard");
     }
   }, [user]);
   return (

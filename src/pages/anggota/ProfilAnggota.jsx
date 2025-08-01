@@ -1,9 +1,23 @@
 // src/pages/anggota/ProfilAnggota.jsx
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import dasboardDepan from "../../assets/backgroud-depan.webp";
 import { AuthContext } from "../../context/auth-context/AuthContext";
+import { updateAnggota } from "../../services/adminService";
+import EditProfilModal from "./profil/ModalProfilUpdate";
 const ProfilAnggota = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
+  const handleUpdate = async (formData) => {
+    try {
+      const response = await updateAnggota(user.id, formData);
+      setUser(response.data); // Update context supaya langsung ganti tampilan
+      setShowModal(false);
+      alert("Profil berhasil diperbarui!");
+    } catch (err) {
+      console.error(err);
+      alert("Gagal update profil.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white py-10 px-4">
@@ -13,7 +27,6 @@ const ProfilAnggota = () => {
         </h2>
 
         <div className="flex flex-col lg:flex-row items-center gap-8">
-          {/* Gambar Profil */}
           <div className="flex-shrink-0">
             <img
               src={dasboardDepan}
@@ -44,23 +57,25 @@ const ProfilAnggota = () => {
               <p className="text-gray-500 text-sm">No HP</p>
               <p className="font-semibold">{user.nohp}</p>
             </div>
-            <div>
-              <p className="text-gray-500 text-sm">Alamat</p>
-              <p className="font-semibold">{user.alamat}</p>
-            </div>
-            <div>
-              <p className="text-gray-500 text-sm">Tanggal Bergabung</p>
-              <p className="font-semibold">{user.tanggalBergabung}</p>
-            </div>
           </div>
         </div>
 
         <div className="mt-8 flex justify-center">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg shadow">
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg shadow"
+          >
             Edit Profil
           </button>
         </div>
       </div>
+      {showModal && (
+        <EditProfilModal
+          user={user}
+          onClose={() => setShowModal(false)}
+          onSave={handleUpdate}
+        />
+      )}
     </div>
   );
 };

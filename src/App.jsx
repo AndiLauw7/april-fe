@@ -31,6 +31,9 @@ import { AdminContextKelolaProvider } from "./context/admin/AdminContextKelola.j
 import { DataAnggota } from "./pages/admin/Data-anggota/DataAnggota.jsx";
 import { AnggotaProvider } from "./context/anggota/AnggotaContext.jsx";
 import DataAllAdmin from "./pages/admin/Data-admin/DataAdmin.jsx";
+import LaporanPeminjam from "./pages/admin/laporan/LaporanPeminjam.jsx";
+import { KategoriProvider } from "./context/kategori/KategoriContext.jsx";
+import { Kategori } from "./pages/admin/kategori/Kategori.jsx";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -41,7 +44,7 @@ function App() {
           path="/login"
           element={
             user ? (
-              user.role === "admin" ? (
+              user.role === "admin" || user.role === "kepsek" ? (
                 <Navigate to="/admin/dashboard" replace />
               ) : (
                 <Navigate to="/anggota/dashboard" replace />
@@ -61,8 +64,18 @@ function App() {
               path="buku"
               element={
                 <BukuProvider>
-                  <BukuPage />
+                  <KategoriProvider>
+                    <BukuPage />
+                  </KategoriProvider>
                 </BukuProvider>
+              }
+            />
+            <Route
+              path="kategori"
+              element={
+                <KategoriProvider>
+                  <Kategori />
+                </KategoriProvider>
               }
             />
             <Route
@@ -94,6 +107,17 @@ function App() {
                 </AdminContextKelolaProvider>
               }
             />
+
+            <Route
+              path="laporan"
+              element={
+                <BukuProvider>
+                  <PeminjamanProvider>
+                    <LaporanPeminjam />
+                  </PeminjamanProvider>
+                </BukuProvider>
+              }
+            />
           </Route>
         </Route>
 
@@ -115,7 +139,9 @@ function App() {
               path="daftar-buku"
               element={
                 <BukuProvider>
-                  <DaftarBukuAnggota />
+                  <KategoriProvider>
+                    <DaftarBukuAnggota />
+                  </KategoriProvider>
                 </BukuProvider>
               }
             />

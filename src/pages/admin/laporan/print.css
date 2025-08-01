@@ -1,0 +1,13 @@
+/* Sembunyikan bagian ini saat dicetak */
+
+@media print {
+  .hide-on-print {
+    display: none !important;
+  }
+  .print-area {
+    visibility: visible !important;
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+}

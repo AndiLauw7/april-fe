@@ -8,6 +8,10 @@ import {
   Button,
   IconButton,
   Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { AdminContextKelola } from "../../../context/admin/AdminContextKelola";
@@ -39,6 +43,7 @@ export const ModalFormAdmin = ({
     nama: "",
     email: "",
     password: "",
+    role: "admin",
   });
 
   useEffect(() => {
@@ -102,6 +107,19 @@ export const ModalFormAdmin = ({
             variant="outlined"
           />
         ))}
+        <FormControl fullWidth margin="normal" required>
+          <InputLabel id="role-label">Role</InputLabel>
+          <Select
+            labelId="role-label"
+            name="role"
+            value={formData.role}
+            label="Role"
+            onChange={handleChange}
+          >
+            <MenuItem value="admin">Admin</MenuItem>
+            <MenuItem value="kepsek">Kepsek</MenuItem>
+          </Select>
+        </FormControl>
 
         <Button
           type="submit"

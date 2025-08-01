@@ -11,8 +11,13 @@ export const AuthProvider = ({ children }) => {
 
   const fetchProfile = async () => {
     const role = localStorage.getItem("role");
+
+    // const url =
+    //   role === "admin" ? "/api/v1/admin/profile" : "/api/v1/anggota/profile";
+
     const url =
-      role === "admin" ? "/api/v1/admin/profile" : "/api/v1/anggota/profile";
+      role === "anggota" ? "/api/v1/anggota/profile" : "/api/v1/admin/profile";
+
     try {
       const res = await fetch(`http://localhost:5000${url}`, {
         headers: {
@@ -21,7 +26,17 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await res.json();
       if (res.ok) {
-        setUser(data[role]);
+        // setUser(data[role] || data.admin);
+        // setUser(role === "anggota" ? data.anggota : data.admin);
+        const role = localStorage.getItem("role");
+        const profile = role === "anggota" ? data.anggota : data.admin;
+
+        if (!profile) {
+          console.error("Profil tidak ditemukan untuk role:", role);
+          setUser(null);
+          return;
+        }
+        setUser({ ...profile, role });
       } else {
         setUser(null);
         console.log(data.message);
@@ -48,6 +63,7 @@ export const AuthProvider = ({ children }) => {
       if (!res.ok) throw new Error(data.message);
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
+
       setToken(data.token);
 
       await fetchProfile();
@@ -77,7 +93,9 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
   return (
-    <AuthContext.Provider value={{ user, token, register, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, token, register, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

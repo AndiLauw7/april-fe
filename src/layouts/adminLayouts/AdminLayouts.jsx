@@ -8,8 +8,9 @@ import {
   FaHome,
   FaUsers,
   FaExchangeAlt,
+  FaKickstarter,
 } from "react-icons/fa";
-
+import { TbReport } from "react-icons/tb";
 const AdminLayouts = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -36,6 +37,9 @@ const AdminLayouts = () => {
           <NavLink to="/admin/buku" className={linkClass}>
             <FaBook /> Kelola Buku
           </NavLink>
+          <NavLink to="/admin/kategori" className={linkClass}>
+            <FaKickstarter /> Kelola Kategori
+          </NavLink>
           <NavLink to="/admin/kelola-admin" className={linkClass}>
             <FaUserShield /> Kelola Admin
           </NavLink>
@@ -44,6 +48,9 @@ const AdminLayouts = () => {
           </NavLink>
           <NavLink to="/admin/peminjaman" className={linkClass}>
             <FaExchangeAlt /> Kelola Peminjaman
+          </NavLink>
+          <NavLink to="/admin/laporan" className={linkClass}>
+            <TbReport /> Kelola Laporan
           </NavLink>
           <button
             onClick={handleLogout}

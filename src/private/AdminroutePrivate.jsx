@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const AdminRoutePrivate = () => {
   const { user } = useContext(AuthContext);
-  if (!user || user.role !== "admin") {
+  if (!user || (user.role !== "admin" && user.role !== "kepsek")) {
     return <Navigate to="/login" replace />;
   }
   return <Outlet />;

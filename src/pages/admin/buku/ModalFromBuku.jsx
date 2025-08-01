@@ -10,8 +10,10 @@ import {
   Button,
   IconButton,
   Alert,
+  Autocomplete,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { KategoriContext } from "../../../context/kategori/KategoriContext";
 
 const style = {
   position: "absolute",
@@ -30,19 +32,30 @@ const style = {
 
 export const ModalFromBuku = ({ onClose, editId = null }) => {
   const { tambahBuku, updateDataBuku, message } = useContext(BukuContext);
+  const { kategoriList } = useContext(KategoriContext);
+  console.log("kategoriList:", kategoriList); // ⬅️ Tambahkan di sini
+  console.log("Tipe kategoriList:", typeof kategoriList);
+  console.log("Is Array?", Array.isArray(kategoriList));
   const [form, setForm] = useState({
     judul_buku: "",
     pengarang: "",
     tahun_terbit: "",
     penerbit: "",
-    kategori: "",
+    kategoriId: "",
     stok: "",
+    keterangan: "",
+    image: null,
   });
 
   useEffect(() => {
     if (editId) {
       getBukuById(editId).then((res) => {
-        setForm(res.data.buku);
+        const buku = res.data.buku;
+        // setForm(res.data.buku);
+        setForm({
+          ...buku,
+          kategoriId: buku.kategoriId ? buku.kategoriId : "", //
+        });
       });
     } else {
       setForm({
@@ -50,8 +63,10 @@ export const ModalFromBuku = ({ onClose, editId = null }) => {
         pengarang: "",
         tahun_terbit: "",
         penerbit: "",
-        kategori: "",
+        kategoriId: "",
         stok: "",
+        keterangan: "",
+        image: null,
       });
     }
   }, [editId]);
@@ -60,14 +75,59 @@ export const ModalFromBuku = ({ onClose, editId = null }) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (editId) {
+  //     await updateDataBuku(editId, form);
+  //   } else {
+  //     await tambahBuku(form);
+  //     onClose();
+  //   }
+  //   onClose();
+  // };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const formData = new FormData();
+  //   for (const key in form) {
+  //     if (form[key] !== null) {
+  //       formData.append(key, form[key]);
+  //     }
+  //   }
+
+  //   if (editId) {
+  //     await updateDataBuku(editId, formData);
+  //   } else {
+  //     await tambahBuku(formData);
+  //   }
+  //   onClose();
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editId) {
-      await updateDataBuku(editId, form);
-    } else {
-      await tambahBuku(form);
-      onClose();
+
+    const formData = new FormData();
+
+    // Masukkan field satu per satu
+    formData.append("judul_buku", form.judul_buku);
+    formData.append("pengarang", form.pengarang);
+    formData.append("tahun_terbit", form.tahun_terbit);
+    formData.append("penerbit", form.penerbit);
+    formData.append("keterangan", form.keterangan);
+    formData.append("kategoriId", form.kategoriId);
+
+    formData.append("stok", form.stok);
+
+    // Masukkan file (gambar)
+    if (form.image) {
+      formData.append("image", form.image);
     }
+
+    if (editId) {
+      await updateDataBuku(editId, formData);
+    } else {
+      await tambahBuku(formData);
+    }
+
     onClose();
   };
 
@@ -119,11 +179,17 @@ export const ModalFromBuku = ({ onClose, editId = null }) => {
             type: "text",
           },
           {
-            name: "kategori",
-            label: "Kategori",
+            name: "keterangan",
+            label: "Keterangan",
             required: false,
             type: "text",
           },
+          // {
+          //   name: "kategori",
+          //   label: "Kategori",
+          //   required: false,
+          //   type: "text",
+          // },
           { name: "stok", label: "Stok", required: false, type: "number" },
         ].map(({ name, label, required, type }) => (
           <TextField
@@ -139,6 +205,31 @@ export const ModalFromBuku = ({ onClose, editId = null }) => {
             variant="outlined"
           />
         ))}
+
+        <Autocomplete
+          fullWidth
+          options={kategoriList}
+          getOptionLabel={(option) => option.nama_kategori}
+          value={
+            kategoriList.find((item) => item.id === form.kategoriId) || null
+          }
+          onChange={(e, newValue) => {
+            setForm((prev) => ({
+              ...prev,
+              kategoriId: newValue ? newValue.id : "",
+            }));
+          }}
+          renderInput={(params) => (
+            <TextField {...params} label="Kategori" margin="normal" required />
+          )}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, image: e.target.files[0] }))
+          }
+        />
 
         <Button
           type="submit"

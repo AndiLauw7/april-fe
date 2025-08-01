@@ -2,7 +2,7 @@ import React from "react";
 import { useMemo } from "react";
 import { ConvertTanggal } from "../../../utils/convert-tgl/ConvertTgl";
 
-export const useColumns = (handleEdit, handleOpenConfirm) => {
+export const useColumns = (handleEdit) => {
   const columns = useMemo(
     () => [
       {
